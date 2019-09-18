@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/opt_1" android:title="Yellow"/>
-    <item android:id="@+id/opt_2" android:title="Blue"/>
-    <item android:id="@+id/opt_3" android:title="Red"/>
-    <item android:id="@+id/opt_4" android:title="Green"/>
-    <item android:id="@+id/opt_5" android:title="Brown"/>
-    <item android:id="@+id/opt_6" android:title="Black"/>
-    <item android:id="@+id/opt_7" android:title="Pink"/>
-    <item android:id="@+id/opt_8" android:title="Purple"/>
-    <item android:id="@+id/opt_9" android:title="White"/>
-    <item android:id="@+id/opt_10" android:title="Gray"/>
-
-
-
-
+    <item android:id="@+id/iteTransparent" android:title="Transparent"/>
+    <item android:id="@+id/iteSemitransparent" android:title="Semitransparent"/>
+    <item android:id="@+id/iteOpaque" android:title="Opaque"/>
+    <item android:id="@+id/iteYellow" android:title="Yellow"/>
+    <item android:id="@+id/iteBlue" android:title="Blue"/>
+    <item android:id="@+id/iteRed" android:title="Red"/>
+    <item android:id="@+id/iteGreen" android:title="Green"/>
+    <item android:id="@+id/iteBrown" android:title="Brown"/>
+    <item android:id="@+id/iteBlack" android:title="Black"/>
+    <item android:id="@+id/itePink" android:title="Pink"/>
+    <item android:id="@+id/itePurple" android:title="Purple"/>
+    <item android:id="@+id/iteWhite" android:title="White"/>
+    <item android:id="@+id/iteGray" android:title="Gray"/>
 </menu>

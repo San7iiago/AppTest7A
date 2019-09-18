@@ -11,4 +11,8 @@
     <string name="white">Blanco</string>
     <string name="brown">Cafè</string>
     <string name="gray">Gris</string>
+    <string name="transparent">Transparente</string>
+    <string name="semitransparente">Semistransparente</string>
+    <string name="opaque">Opaco</string>
+    <string name="alpha">Alfa</string>
 </resources>

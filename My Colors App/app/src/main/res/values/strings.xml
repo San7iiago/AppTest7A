@@ -10,5 +10,9 @@
     <string name="white">White</string>
     <string name="brown">Brown</string>
     <string name="gray">Gray</string>
+    <string name="transparent">Transparent</string>
+    <string name="semitransparente">Semitransparent</string>
+    <string name="opaque">Opaque</string>
+    <string name="alpha">Alpha</string>
 
 </resources>
