@@ -21,17 +21,16 @@
 
     <item
         android:id="@+id/op_4"
-        android:title="Option 2"
+        android:title="Option 2"/>
+    <menu>
+        <item
+            android:id="@+id/op_one"
+            android:title="Option 2"
+            />
 
-        <menu>
-            <item
-                android:id="@+id/op_one"
-                android:title="Option 2"
-                />
-            <item
-                android:id="@+id/op_two"
-                android:title="Option 2"
-                />
-        </menu>
+        <item
+            android:id="@+id/op_two"
+            android:title="Option 2"/>
+    </menu>
 
 </menu>

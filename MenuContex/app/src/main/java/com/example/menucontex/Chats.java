@@ -21,7 +21,7 @@ public class Chats extends AppCompatActivity {
     //Mostrar menu de opciones
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater InFlater = getMenuInflater():
+        MenuInflater InFlater = getMenuInflater();
         InFlater.inflate(R.menu.colors2, menu);
         return true;
     }
