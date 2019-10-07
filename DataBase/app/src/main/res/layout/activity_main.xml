@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="16dp"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Correos:"
-        android:textSize="14sp" />
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:paddingLeft="16dp"
+android:paddingTop="16dp"
+android:paddingRight="16dp"
+android:paddingBottom="16dp"
+tools:context=".MainActivity">
 
     <ListView
         android:id="@+id/lista"
-        android:layout_width="306dp"
-        android:layout_height="match_parent"></ListView>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
