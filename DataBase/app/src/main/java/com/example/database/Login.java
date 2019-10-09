@@ -1,15 +1,14 @@
 package com.example.database;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.Base.connectionDB;
 import com.example.database.utilidades.Utilidades;
@@ -28,29 +27,39 @@ public class Login extends AppCompatActivity {
     }
 
     public void Register(View v) {
-
         startActivity(new Intent(Login.this, SingUp.class));
     }
 
     public void LogInS (View view){
         conn=new connectionDB(this,"bd_users",null,1);
         SQLiteDatabase market=conn.getReadableDatabase();
-        String[] parametros={semail.getText().toString()};
+        String[] parametros = {semail.getText().toString()};
 
-        try{
+        try {
 
-            //select email, nombre from usuario where codigo=?
             Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
                     " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_EMAIL+"=? ",parametros);
-            cursor.moveToFirst();
-            Toast.makeText(this, "El correo "+cursor.getString(0)+" ha iniciado sesion", Toast.LENGTH_SHORT).show();
-            cursor.close();
+            if (cursor.getCount()>0){
+                String[] parametros2 = {spassword.getText().toString()};
 
-            iniciar();
+                try {
+                    Cursor cursor2=market.rawQuery("SELECT "+Utilidades.CAMPO_CONTRASENA+
+                            " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_CONTRASENA+"=? ",parametros2);
+                    if (cursor2.getCount()>0){
 
+                        iniciar();
+                    } else {
+                        Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e){
 
-        }catch (Exception e) {
-            Toast.makeText(this, "Correo o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Usuario incorrecto", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e){
+
         }
     }
 

@@ -16,8 +16,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="223dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="150dp"
+            tools:srcCompat="@tools:sample/avatars[11]" />
 
         <TextView
             android:id="@+id/textView9"
@@ -26,6 +26,7 @@
             android:text="Login"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="36sp"
+            android:gravity="center"
             android:typeface="monospace" />
 
         <TextView
@@ -33,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
-            android:textSize="36sp" />
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/semail"

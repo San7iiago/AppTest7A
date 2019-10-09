@@ -1,45 +1,62 @@
 package com.example.database;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.Base.connectionDB;
-import com.example.database.entidades.Usuario;
 import com.example.database.utilidades.Utilidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listViewPersonas;
-    ArrayList<String> listaInformacion;
-    ArrayList<Usuario> listaUsuarios;
-
+    ListView lista;
+    List<String> item = null;
     connectionDB conn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lista;
-        ArrayAdapter<String> adaptador;
+        lista = findViewById(R.id.lista);
 
-        lista = (ListView)findViewById(R.id.lista);
+        listarUsuarios();
+    }
 
-        adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+    private void listarUsuarios(){
+        conn=new connectionDB(this,"bd_users",null,1);
+        SQLiteDatabase market=conn.getReadableDatabase();
 
+        Cursor c = getUsers();
+        item = new ArrayList<String>();
+        String usu = "";
+
+        if (c.moveToFirst()){
+            do{
+                usu = c.getString(0);
+                item.add(usu);
+            }while(c.moveToNext());
+        }
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
         lista.setAdapter(adaptador);
+    }
 
+    public Cursor getUsers(){
+        conn=new connectionDB(this,"bd_users",null,1);
+        SQLiteDatabase market=conn.getReadableDatabase();
+        String[] columnas= {Utilidades.CAMPO_EMAIL};
 
+        Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
+                " FROM "+Utilidades.TABLA_USUARIO, null);
+        return cursor;
     }
 
 }

@@ -1,13 +1,5 @@
 package com.example.database;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.database.sqlite.SQLiteDatabase;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.Base.connectionDB;
 import com.example.database.utilidades.Utilidades;
@@ -26,6 +20,7 @@ public class SingUp extends AppCompatActivity {
     private EditText lname;
     private EditText email;
     private EditText password;
+    private EditText rpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +31,48 @@ public class SingUp extends AppCompatActivity {
         lname = findViewById(R.id.lname);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        rpassword = findViewById(R.id.rpassword);
     }
 
     public void SignUp (View view){
-        connectionDB conn=new connectionDB(this,"bd_users",null,1);
+        conn=new connectionDB(this,"bd_users",null,1);
         SQLiteDatabase market=conn.getReadableDatabase();
         String[] parametros={email.getText().toString()};
 
-        try{
+        String nombre = fname.getText().toString();
+        String apellido = lname.getText().toString();
+        String correo = email.getText().toString();
+        String contrasena = password.getText().toString();
+        String contrasena2 = rpassword.getText().toString();
 
-            //select email, nombre from usuario where codigo=?
-            Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
-                    " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_EMAIL+"=? ",parametros);
-            cursor.moveToFirst();
-            Toast.makeText(this, "El correo "+cursor.getString(0)+" ya existe", Toast.LENGTH_SHORT).show();
-            cursor.close();
+        if (nombre.length() == 0){
+            Toast.makeText(this, "Debe llenar el campo nombre", Toast.LENGTH_SHORT).show();
+        } else if (apellido.length() == 0){
+            Toast.makeText(this, "Debe llenar el campo apellido", Toast.LENGTH_SHORT).show();
+        } else if (correo.length() == 0){
+            Toast.makeText(this, "Debe llenar el campo correo", Toast.LENGTH_SHORT).show();
+        } else if (contrasena.length() == 0){
+            Toast.makeText(this, "Debe llenar el campo contrasena", Toast.LENGTH_SHORT).show();
+        } else if (contrasena2.length() == 0){
+            Toast.makeText(this, "Debe llenar el campo contrasena", Toast.LENGTH_SHORT).show();
+        } else if (nombre.length() != 0 && apellido.length() != 0 && email.length() != 0
+                && contrasena.length() != 0 && contrasena2.length() != 0
+                && contrasena2.equals(contrasena)){
+            try{
+                //select email, nombre from usuario where codigo=?
+                Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
+                        " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_EMAIL+"=? ",parametros);
+                cursor.moveToFirst();
+                Toast.makeText(this, "El correo "+cursor.getString(0)+" ya existe", Toast.LENGTH_SHORT).show();
+                cursor.close();
 
-            limpiar();
+                limpiar();
 
-
-        }catch (Exception e) {
-            registrarUsuarios();
+            }catch (Exception e) {
+                registrarUsuarios();
+            }
+        } else {
+            Toast.makeText(this, "Las contraseñas deben ser iguales", Toast.LENGTH_SHORT).show();
         }
 
     }

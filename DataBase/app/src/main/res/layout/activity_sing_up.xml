@@ -19,6 +19,7 @@
             android:text="Register"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="24sp"
+            android:gravity="center"
             android:typeface="monospace" />
 
         <TextView
@@ -107,6 +108,8 @@
             android:layout_height="wrap_content"
             android:onClick="SignUp"
             android:text="Sign Up"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:background="@color/colorBtnSignIn"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
