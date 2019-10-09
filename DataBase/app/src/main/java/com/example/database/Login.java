@@ -35,31 +35,37 @@ public class Login extends AppCompatActivity {
         SQLiteDatabase market=conn.getReadableDatabase();
         String[] parametros = {semail.getText().toString()};
 
-        try {
+        String email = semail.getText().toString();
+        String password = spassword.getText().toString();
 
-            Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
-                    " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_EMAIL+"=? ",parametros);
-            if (cursor.getCount()>0){
-                String[] parametros2 = {spassword.getText().toString()};
+        if (email.isEmpty() || password.isEmpty()){
+            Toast.makeText(this, "Debe llenar los campos", Toast.LENGTH_SHORT).show();
+        } else if (!email.isEmpty() && password.isEmpty()){
+            try {
+                Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
+                        " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_EMAIL+"=? ",parametros);
+                if (cursor.moveToFirst()){
+                    String[] parametros2 = {spassword.getText().toString()};
 
-                try {
-                    Cursor cursor2=market.rawQuery("SELECT "+Utilidades.CAMPO_CONTRASENA+
-                            " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_CONTRASENA+"=? ",parametros2);
-                    if (cursor2.getCount()>0){
+                    try {
+                        Cursor cursor2=market.rawQuery("SELECT "+Utilidades.CAMPO_CONTRASENA+
+                                " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_CONTRASENA+"=? ",parametros2);
+                        if (cursor2.getCount()>0){
 
-                        iniciar();
-                    } else {
-                        Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                            iniciar();
+                        } else {
+                            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e){
+
                     }
-                } catch (Exception e){
-
+                } else {
+                    Toast.makeText(this, "Usuario incorrecto", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(this, "Usuario incorrecto", Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e){
+
             }
-
-        } catch (Exception e){
-
         }
     }
 
