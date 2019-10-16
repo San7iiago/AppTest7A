@@ -2,10 +2,13 @@ package com.example.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.database.Base.connectionDB;
@@ -59,4 +62,21 @@ public class MainActivity extends AppCompatActivity {
         return cursor;
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.iteFemale:
+                return true;
+            case R.id.iteMale:
+                return true;
+            case R.id.iteAllUsers:
+                return true;
+            case R.id.iteAbout:
+                return true;
+            case R.id.iteLogout:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 }

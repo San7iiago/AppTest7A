@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ public class SingUp extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private EditText rpassword;
+    private Spinner sGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class SingUp extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         rpassword = findViewById(R.id.rpassword);
+        Spinner sGenero = (Spinner) findViewById(R.id.sGender);
     }
 
     public void SignUp (View view){
@@ -45,6 +49,7 @@ public class SingUp extends AppCompatActivity {
         String correo = email.getText().toString();
         String contrasena = password.getText().toString();
         String contrasena2 = rpassword.getText().toString();
+        String size = sGender.getSelectedItem().toString();
 
         if (nombre.length() == 0){
             fname.setError("Debe escribir un nombre");
@@ -70,7 +75,7 @@ public class SingUp extends AppCompatActivity {
                 cursor.moveToFirst();
                 Toast.makeText(this, "El correo "+cursor.getString(0)+" ya existe", Toast.LENGTH_SHORT).show();
                 cursor.close();
-
+                Toast.makeText(this, "El correo "+size+" ya existe", Toast.LENGTH_SHORT).show();
                 limpiar();
 
             }catch (Exception e) {
