@@ -24,4 +24,18 @@ public class connectionDB extends SQLiteOpenHelper {
         market.execSQL("DROP TABLE IF EXISTS "+Utilidades.TABLA_USUARIO);
         onCreate(market);
     }
+
+    public ArrayList llenar_lv(){
+        ArrayList<String> lista = new ArrayList<>();
+        SQLiteDatabase market = this.getWritableDatabase();
+        String q = "SELECT * FROM " + Utilidades.TABLA_USUARIO;
+        Cursor registros = market.rawQuery(q,null);
+        if(registros.moveToFirst()){
+            do{
+                lista.add(registros.getString(1));
+            }while(registros.moveToNext());
+        }
+        return lista;
+
+    }
 }

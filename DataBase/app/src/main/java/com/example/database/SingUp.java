@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class SingUp extends AppCompatActivity {
     }
 
     public void SignUp (View view){
-        conn=new connectionDB(this,Utilidades.TABLA_USUARIO,null,1);
+        conn=new connectionDB(this,"bd_users",null,1);
         SQLiteDatabase market=conn.getReadableDatabase();
         String[] parametros={email.getText().toString()};
 
@@ -45,20 +46,22 @@ public class SingUp extends AppCompatActivity {
         String contrasena = password.getText().toString();
         String contrasena2 = rpassword.getText().toString();
 
-        if (nombre.isEmpty()){
-            Toast.makeText(this, "Debe llenar el campo nombre", Toast.LENGTH_SHORT).show();
-        } else if (apellido.isEmpty()){
-            Toast.makeText(this, "Debe llenar el campo apellido", Toast.LENGTH_SHORT).show();
-        } else if (correo.isEmpty()){
-            Toast.makeText(this, "Debe llenar el campo correo", Toast.LENGTH_SHORT).show();
-        } else if (contrasena.isEmpty()){
-            Toast.makeText(this, "Debe llenar el campo contrasena", Toast.LENGTH_SHORT).show();
-        }else if (contrasena.length() < 8){
-            Toast.makeText(this, "La contraseña debe ser de 8 caracteres almenos", Toast.LENGTH_SHORT).show();
-        } else if (contrasena2.isEmpty()){
-            Toast.makeText(this, "Debe llenar el campo contrasena", Toast.LENGTH_SHORT).show();
-        } else if (!nombre.isEmpty() && !apellido.isEmpty() && !correo.isEmpty()
-                && !contrasena.isEmpty() && !contrasena2.isEmpty()
+        if (nombre.length() == 0){
+            fname.setError("Debe escribir un nombre");
+        } else if (apellido.length() == 0){
+            lname.setError("Debe escribir apellido");
+        } else if (correo.length() == 0){
+            email.setError("Debe escribir correo");
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            email.setError("El correo no es valido");
+        } else if (contrasena.length() == 0){
+            Toast.makeText(this, "Debe escribir una contraseña", Toast.LENGTH_SHORT).show();
+        }   else if (contrasena.length() < 8){
+            Toast.makeText(this, "La contraseña debe tener almenos 8 caracteres", Toast.LENGTH_SHORT).show();
+        } else if (contrasena2.length() == 0){
+            Toast.makeText(this, "Debe confirmar una contraseña", Toast.LENGTH_SHORT).show();
+        } else if (nombre.length() != 0 && apellido.length() != 0 && email.length() != 0
+                && contrasena.length() != 0 && contrasena2.length() != 0
                 && contrasena2.equals(contrasena)){
             try{
                 //select email, nombre from usuario where codigo=?
