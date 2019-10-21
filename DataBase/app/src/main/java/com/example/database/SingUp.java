@@ -123,7 +123,7 @@ public class SingUp extends AppCompatActivity {
     }
 
     private void registrarUsuarios() {
-        connectionDB conn=new connectionDB(this,"market",null,1);
+        conn=new connectionDB(this,"market",null,1);
 
         SQLiteDatabase market=conn.getWritableDatabase();
 
@@ -137,7 +137,7 @@ public class SingUp extends AppCompatActivity {
         ContentValues pack=new ContentValues();
         pack.put(Utilidades.CAMPO_NOMBRE, nombre);
         pack.put(Utilidades.CAMPO_APELLIDO, apellido);
-        pack.put(Utilidades.CAMPO_CUMPLE, fechaDeNacimiento);
+        //pack.put(Utilidades.CAMPO_CUMPLE, fechaDeNacimiento);
         pack.put(Utilidades.CAMPO_EMAIL, correo);
         pack.put(Utilidades.CAMPO_CONTRASENA, contrasena);
 

@@ -43,19 +43,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conn = new connectionDB(this, "market", null, 1);
 
-        recyclerViewUser = findViewById(R.id.RecyclerUsuario);
+
+        /*recyclerViewUser = findViewById(R.id.RecyclerUsuario);
 
         recyclerViewUser.setHasFixedSize(true);
 
         lManager = new LinearLayoutManager(this);
         recyclerViewUser.setLayoutManager(lManager);
 
-        usuario = conn.select();
+        //usuario = conn.select();
 
         adapter = new listaAdaptador(usuario);
-        recyclerViewUser.setAdapter(adapter);
+        recyclerViewUser.setAdapter(adapter);*/
     }
 
     /*@Override
