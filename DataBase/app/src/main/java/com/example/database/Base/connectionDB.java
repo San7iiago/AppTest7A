@@ -5,8 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 
+import com.example.database.fuente;
 import com.example.database.utilidades.Utilidades;
 import java.util.ArrayList;
+import java.util.List;
 
 public class connectionDB extends SQLiteOpenHelper {
 
@@ -25,17 +27,18 @@ public class connectionDB extends SQLiteOpenHelper {
         onCreate(market);
     }
 
-    public ArrayList llenar_lv(){
-        ArrayList<String> lista = new ArrayList<>();
-        SQLiteDatabase market = this.getWritableDatabase();
-        String q = "SELECT * FROM " + Utilidades.TABLA_USUARIO;
-        Cursor registros = market.rawQuery(q,null);
-        if(registros.moveToFirst()){
-            do{
-                lista.add(registros.getString(1));
-            }while(registros.moveToNext());
+    public List<fuente> select(){
+        List<fuente> userList = new ArrayList<>();
+        //Let DB read
+        SQLiteDatabase market = this.getReadableDatabase();
+        //Get data
+        Cursor cursor = market.rawQuery("SELECT * from " + Utilidades.TABLA_USUARIO, null);
+        //Store all users into a user list
+        while (cursor.moveToNext()) {
+            userList.add(new fuente(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
         }
-        return lista;
 
+        cursor.close();
+        return userList;
     }
 }

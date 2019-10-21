@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void LogInS (View view){
-        conn=new connectionDB(this,"bd_users",null,1);
+        conn=new connectionDB(this,"market",null,1);
         SQLiteDatabase market=conn.getReadableDatabase();
         String[] parametros = {semail.getText().toString()};
 

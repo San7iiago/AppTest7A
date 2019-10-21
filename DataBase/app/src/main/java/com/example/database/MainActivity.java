@@ -2,13 +2,7 @@ package com.example.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.database.Base.connectionDB;
 import com.example.database.utilidades.Utilidades;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +21,29 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager lManager;
     connectionDB conn;
 
+    List<fuente> usuario;
+
+    /*public List<fuente> obtenerUsuarios(){
+        connectionDB conn = new connectionDB(this, "market", null, 1);
+        SQLiteDatabase market=conn.getReadableDatabase();
+        Cursor cursor = market.rawQuery("SELECT "+Utilidades.CAMPO_NOMBRE+","+Utilidades.CAMPO_APELLIDO+","+Utilidades.CAMPO_EMAIL
+                +" FROM "+ Utilidades.TABLA_USUARIO, null);
+
+        while (cursor.moveToNext()) {
+            usuario.add(new fuente(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+        }
+
+        cursor.close();
+
+        return usuario;
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        conn = new connectionDB(this, "market", null, 1);
 
         recyclerViewUser = findViewById(R.id.RecyclerUsuario);
 
@@ -38,29 +52,10 @@ public class MainActivity extends AppCompatActivity {
         lManager = new LinearLayoutManager(this);
         recyclerViewUser.setLayoutManager(lManager);
 
-        adapter = new listaAdaptador(obtenerUsuarios());
+        usuario = conn.select();
+
+        adapter = new listaAdaptador(usuario);
         recyclerViewUser.setAdapter(adapter);
-    }
-
-
-
-    public List<fuente> obtenerUsuarios(){
-
-        List<fuente> usuario = new ArrayList<>();
-        conn=new connectionDB(this,"bd_users",null,1);
-        SQLiteDatabase market=conn.getReadableDatabase();
-
-        Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_NOMBRE+", "+ Utilidades.CAMPO_APELLIDO+", "+Utilidades.CAMPO_EMAIL+
-                " FROM "+Utilidades.TABLA_USUARIO, null);
-
-        if (cursor.moveToFirst()) {
-            //Recorremos el cursor hasta que no haya más registros
-            do {
-                usuario.add(new fuente(cursor.getString(0),cursor.getString(1), cursor.getString(2)));
-            } while(cursor.moveToNext());
-        }
-
-        return usuario;
     }
 
     /*@Override

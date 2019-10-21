@@ -12,27 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class listaAdaptador extends RecyclerView.Adapter<listaAdaptador.UserViewHolder> {
-
-    public static class UserViewHolder extends RecyclerView.ViewHolder{
-        public TextView nombre, apellido, correo;
-
-        public UserViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nombre = (TextView) itemView.findViewById(R.id.lname);
-            apellido = (TextView) itemView.findViewById(R.id.lapellido);
-            correo = (TextView) itemView.findViewById(R.id.lcorreo);
-        }
-    }
-
     public List<fuente> usuarioLista;
 
-    public listaAdaptador(List<fuente> usuarioLista) {
-        this.usuarioLista = usuarioLista;
-    }
-
-    public int getItemCount() {
-        return usuarioLista.size();
-    }
+    public listaAdaptador(List<fuente> usuarioLista) { this.usuarioLista = usuarioLista; }
 
     public UserViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_layout,viewGroup,false);
@@ -42,9 +24,26 @@ public class listaAdaptador extends RecyclerView.Adapter<listaAdaptador.UserView
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder viewHolder, int i) {
+        viewHolder.id = usuarioLista.get(i).getId();
         viewHolder.nombre.setText(usuarioLista.get(i).getNombre());
         viewHolder.apellido.setText(usuarioLista.get(i).getApellido());
         viewHolder.correo.setText(usuarioLista.get(i).getCorreo());
+    }
+
+    public int getItemCount() {
+        return usuarioLista.size();
+    }
+
+    class UserViewHolder extends RecyclerView.ViewHolder{
+        TextView nombre, apellido, correo;
+        int id;
+
+        UserViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nombre = (TextView) itemView.findViewById(R.id.lname);
+            apellido = (TextView) itemView.findViewById(R.id.lapellido);
+            correo = (TextView) itemView.findViewById(R.id.lcorreo);
+        }
     }
 
 }
