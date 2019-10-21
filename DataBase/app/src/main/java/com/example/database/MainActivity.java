@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.database.Base.connectionDB;
 import com.example.database.utilidades.Utilidades;
@@ -19,8 +21,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView lista;
-    List<String> item = null;
+    private RecyclerView recyclerViewUser;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager lManager;
     connectionDB conn;
 
     @Override
@@ -28,41 +31,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lista = findViewById(R.id.lista);
+        recyclerViewUser = findViewById(R.id.RecyclerUsuario);
 
-        listarUsuarios();
+        recyclerViewUser.setHasFixedSize(true);
+
+        lManager = new LinearLayoutManager(this);
+        recyclerViewUser.setLayoutManager(lManager);
+
+        adapter = new listaAdaptador(obtenerUsuarios());
+        recyclerViewUser.setAdapter(adapter);
     }
 
-    private void listarUsuarios(){
+
+
+    public List<fuente> obtenerUsuarios(){
+
+        List<fuente> usuario = new ArrayList<>();
         conn=new connectionDB(this,"bd_users",null,1);
         SQLiteDatabase market=conn.getReadableDatabase();
 
-        Cursor c = getUsers();
-        item = new ArrayList<String>();
-        String usu = "";
+        Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_NOMBRE+", "+ Utilidades.CAMPO_APELLIDO+", "+Utilidades.CAMPO_EMAIL+
+                " FROM "+Utilidades.TABLA_USUARIO, null);
 
-        if (c.moveToFirst()){
-            do{
-                usu = c.getString(0);
-                item.add(usu);
-            }while(c.moveToNext());
+        if (cursor.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                usuario.add(new fuente(cursor.getString(0),cursor.getString(1), cursor.getString(2)));
+            } while(cursor.moveToNext());
         }
 
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
-        lista.setAdapter(adaptador);
+        return usuario;
     }
 
-    public Cursor getUsers(){
-        conn=new connectionDB(this,"bd_users",null,1);
-        SQLiteDatabase market=conn.getReadableDatabase();
-        String[] columnas= {Utilidades.CAMPO_EMAIL};
-
-        Cursor cursor=market.rawQuery("SELECT "+Utilidades.CAMPO_EMAIL+
-                " FROM "+Utilidades.TABLA_USUARIO, null);
-        return cursor;
-    }
-
-    @Override
+    /*@Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.iteFemale:
@@ -78,5 +79,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-    }
+    }*/
 }

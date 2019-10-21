@@ -19,9 +19,9 @@
         android:gravity="center"
         android:textSize="24sp" />
 
-    <ListView
-        android:id="@+id/lista"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
